@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Italiana&family=K2D:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="grid">
+      <aside>
+        <div class="author-list">
+          <a href="index.html">All books</a>
+          <h3>Authors</h3>
+          <ul>
+            {{#each authors}}
+            <li><a href="author--{{ slug }}.html">{{ name }}</li></a>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="series-list">
+          <h3>Series</h3>
+          <ul>
+            {{#each series}}
+            {{> series-list-item }}
+            {{/each}}
+          </ul>
+        </div>
+      </aside>
+      <main>
+        {{#each books}}
+        <div class="book">
+          <div class="cover">
+            <img src="covers/{{ id }}.jpg">
+          </div>
+          <div class="info">
+            <h3>{{ title }}{{#if ../ordered}}<br><sup>(book {{ i }})</sup>{{/if}}</h3>
+            <div class="author"><a href="author--{{ author.slug }}.html">{{ author.name }}</div></a>
+            {{#if series }}
+            <div class="series-container">
+            Part of:
+              <div class="series-list">
+                {{#each series}}
+                <div class="series">
+                  <a href="series--{{ slug }}.html">{{ name }}</a>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </main>
+    </div>
+  </body>
+</html>

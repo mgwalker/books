@@ -1,0 +1,8 @@
+<li><a href="series--{{ slug }}.html">{{ name }}</li></a>
+{{#if children}}
+<ul>
+  {{#each children}}
+  {{> series-list-item }}
+  {{/each}}
+</ul>
+{{/if}}

@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "prettier": {},
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "slugify": "^1.6.6",
+    "sqlite3": "^5.1.7"
+  }
+}
