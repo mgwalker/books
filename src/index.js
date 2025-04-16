@@ -87,7 +87,7 @@ const main = async () => {
 
   await Promise.all(
     books.map(({ id, coverPath }) => {
-      return fs.copyFile(coverPath, path.join("site/covers", `${id}.jpg`));
+      return fs.copyFile(coverPath, path.join("docs/covers", `${id}.jpg`));
     })
   );
 
