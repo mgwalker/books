@@ -5,7 +5,7 @@ import slugify from "slugify";
 import sqlite from "sqlite3";
 import render from "./render.js";
 
-const CALIBRE_DIR = path.join(homedir(), "calibre");
+const CALIBRE_DIR = path.join(homedir(), "documents", "books");
 
 const all = async (query, db) =>
   new Promise((resolve, reject) => {
@@ -58,12 +58,12 @@ const main = async () => {
       rows.forEach(({ book, s }) => {
         seriesLinks.set(book, seriesIDs.get(s));
       });
-    }
+    },
   );
 
   const books = await all(
     "SELECT id,title,series_index as i,path FROM books",
-    db
+    db,
   ).then((rows) =>
     rows.map(({ id, title, i, path: bookPath }) => {
       const coverPath = path.join(CALIBRE_DIR, bookPath, "cover.jpg");
@@ -82,13 +82,13 @@ const main = async () => {
       };
 
       return book;
-    })
+    }),
   );
 
   await Promise.all(
     books.map(({ id, coverPath }) => {
       return fs.copyFile(coverPath, path.join("docs/covers", `${id}.jpg`));
-    })
+    }),
   );
 
   books.sort(({ title: a }, { title: b }) => {
@@ -105,7 +105,7 @@ const main = async () => {
   });
 
   const seriesTree = Array.from(
-    series.values().filter(({ parent }) => !parent)
+    series.values().filter(({ parent }) => !parent),
   );
 
   const alphaSort = ({ name: a }, { name: b }) => {
@@ -123,7 +123,7 @@ const main = async () => {
   while (queue.length) {
     const parentSeries = queue.shift();
     parentSeries.children = Array.from(
-      series.values().filter(({ parent }) => parent === parentSeries.name)
+      series.values().filter(({ parent }) => parent === parentSeries.name),
     );
     parentSeries.children.sort(alphaSort);
     queue.push(...parentSeries.children);
@@ -131,20 +131,20 @@ const main = async () => {
 
   await fs.writeFile(
     "./docs/index.html",
-    await render({ books, authors, seriesTree })
+    await render({ books, authors, seriesTree }),
   );
 
   await Promise.all(
     authors.values().map(async (author) => {
       const authorBooks = books.filter(
-        ({ author: { name } }) => name === author.name
+        ({ author: { name } }) => name === author.name,
       );
 
       await fs.writeFile(
         `./docs/author--${author.slug}.html`,
-        await render({ books: authorBooks, authors, seriesTree })
+        await render({ books: authorBooks, authors, seriesTree }),
       );
-    })
+    }),
   );
 
   const containerSeries = series.values().filter(({ leaf }) => !leaf);
@@ -156,9 +156,9 @@ const main = async () => {
 
       await fs.writeFile(
         `./docs/series--${series.slug}.html`,
-        await render({ books: seriesBooks, authors, seriesTree })
+        await render({ books: seriesBooks, authors, seriesTree }),
       );
-    })
+    }),
   );
 
   const leafSeries = series.values().filter(({ leaf }) => leaf);
@@ -171,9 +171,14 @@ const main = async () => {
 
       await fs.writeFile(
         `./docs/series--${series.slug}.html`,
-        await render({ books: seriesBooks, authors, seriesTree, ordered: true })
+        await render({
+          books: seriesBooks,
+          authors,
+          seriesTree,
+          ordered: true,
+        }),
       );
-    })
+    }),
   );
 
   await db.close();
