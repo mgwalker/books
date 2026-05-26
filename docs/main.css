@@ -1,12 +1,79 @@
+:root {
+  --bg-wash: rgb(15, 26, 46);
+  --bg-header: #0f69af;
+  --bg-body: white;
+  --line-color: #888888;
+  --text-primary: black;
+  --text-header: white;
+  --text-link: rgb(15, 105, 175);
+  --text-link-hover: rgb(150, 16, 91);
+  --text-link-visited: rgb(80, 50, 145);
+  --text-footer-link: white;
+  --text-link-on-dark: rgb(173, 210, 241);
+  --text-link-hover-on-dark: rgb(244, 137, 150);
+  --text-link-visited-on-dark: rgb(192, 155, 251);
+
+  @media (prefers-color-scheme: dark) {
+    --bg-wash: rgb(173, 210, 241);
+    --bg-header: rgb(10, 59, 97);
+    --bg-body: rgb(28, 28, 28);
+    --line-color: #dddddd;
+    --text-primary: rgb(199, 199, 209);
+    --text-header: rgb(199, 199, 209);
+    --text-link: rgb(173, 210, 241);
+    --text-link-hover: rgb(244, 137, 150);
+    --text-link-visited: rgb(192, 155, 251);
+    --text-link-on-dark: rgb(15, 85, 135);
+    --text-link-hover-on-dark: rgb(150, 16, 91);
+    --text-link-visited-on-dark: rgb(80, 50, 145);
+    --text-footer-link-on-dark: white;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
+  background: var(--bg-body);
+  color: var(--text-primary);
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Public Sans", Arial, Helvetica, sans-serif;
+
+  a {
+    color: var(--text-link);
+    &:hover {
+      color: var(--text-link-hover);
+    }
+    &:visited {
+      color: var(--text-link-visited);
+    }
+  }
+
+  .on-dark {
+    a {
+      color: var(--text-link-on-dark);
+      &:hover {
+        color: var(--text-link-hover-on-dark);
+      }
+      &:visited {
+        color: var(--text-link-visited-on-dark);
+      }
+    }
+  }
+}
+
+header {
+  width: 100vw;
+  height: 3rem;
+  padding: 0 2rem;
+  background: var(--bg-header);
+  color: var(--text-header);
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
 }
 
 .grid {
@@ -17,7 +84,6 @@ body {
 
 aside {
   padding: 1rem;
-  font-family: "K2D", serif;
   font-weight: 200;
   font-style: normal;
   
@@ -30,6 +96,7 @@ aside {
   }
   li {
     margin-left: 10px;
+    line-height: 1.5;
   }
 }
 
@@ -50,14 +117,14 @@ main {
 
     h3 {
       margin: 0;
-      font-family: "Exo 2", serif;
+      /* font-family: "Exo 2", serif; */
       font-optical-sizing: auto;
       font-weight: 400;
       font-style: normal;
     }
 
     .author {
-      font-family: "Italiana", serif;
+      /* font-family: "Italiana", serif; */
       font-weight: 400;
       font-style: normal;
     }
@@ -67,7 +134,7 @@ main {
 
       .series {
         display: inline-block;
-        background:lightblue;
+        background: var(--bg-wash);
         border-radius: 10000rem;
         padding: 0.2rem;
         margin: 0.2rem 0;

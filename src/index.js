@@ -142,7 +142,12 @@ const main = async () => {
 
       await fs.writeFile(
         `./docs/author--${author.slug}.html`,
-        await render({ books: authorBooks, authors, seriesTree }),
+        await render({
+          books: authorBooks,
+          authors,
+          seriesTree,
+          title: `Books by ${author.name}`,
+        }),
       );
     }),
   );
@@ -156,7 +161,12 @@ const main = async () => {
 
       await fs.writeFile(
         `./docs/series--${series.slug}.html`,
-        await render({ books: seriesBooks, authors, seriesTree }),
+        await render({
+          books: seriesBooks,
+          authors,
+          seriesTree,
+          title: `${series.name} series`,
+        }),
       );
     }),
   );
@@ -176,6 +186,7 @@ const main = async () => {
           authors,
           seriesTree,
           ordered: true,
+          title: `${series.name} series`,
         }),
       );
     }),

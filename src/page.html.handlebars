@@ -3,10 +3,16 @@
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Italiana&family=K2D:wght@200&display=swap" rel="stylesheet">
+    <!--link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Italiana&family=K2D:wght@200&display=swap" rel="stylesheet"-->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <title>My books</title>
   </head>
   <body>
+    <header>
+      <h1>my books</h1>
+      {{#if title }}{{ title }}{{/if}}
+    </header>
     <div class="grid">
       <aside>
         <div class="author-list">
@@ -31,7 +37,7 @@
         {{#each books}}
         <div class="book">
           <div class="cover">
-            <img src="covers/{{ id }}.jpg">
+            <img src="covers/{{ id }}.jpg" alt="">
           </div>
           <div class="info">
             <h3>{{ title }}{{#if ../ordered}}<br><sup>(book {{ i }})</sup>{{/if}}</h3>
@@ -41,7 +47,7 @@
             Part of:
               <div class="series-list">
                 {{#each series}}
-                <div class="series">
+                <div class="series on-dark">
                   <a href="series--{{ slug }}.html">{{ name }}</a>
                 </div>
                 {{/each}}
